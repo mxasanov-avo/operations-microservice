@@ -33,6 +33,6 @@ public class Operation extends BaseEntity {
     @Column(name = "details_hash", nullable = false, updatable = false, columnDefinition = "TEXT")
     private String detailsHash;
 
-    @OneToMany(mappedBy = "operations", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "operation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> transactions;
 }
