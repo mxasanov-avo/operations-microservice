@@ -1,28 +1,21 @@
-package com.mur073.operations.entity;
+package com.mur073.operations.domain.entity;
 
+import com.mur073.operations.domain.OperationStatus;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
+import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "operations")
-public class Operation {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
+public class Operation extends BaseEntity {
     @Column(name = "user_id", nullable = false)
     private UUID userId;
-
-    @Column(name = "created_at", nullable = false, updatable = false)
-    @CreationTimestamp
-    private LocalDateTime createdAt;
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
@@ -34,12 +27,12 @@ public class Operation {
     @Column(name = "currency", nullable = false, updatable = false)
     private String currency;
 
-    @Column(name = "details_encoded", nullable = false, updatable = false)
+    @Column(name = "details_encoded", nullable = false, updatable = false, columnDefinition = "TEXT")
     private String detailsEncoded;
 
-    @Column(name = "details_hash", nullable = false, updatable = false)
+    @Column(name = "details_hash", nullable = false, updatable = false, columnDefinition = "TEXT")
     private String detailsHash;
 
-    @OneToMany(mappedBy = "operation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "operations", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> transactions;
 }
