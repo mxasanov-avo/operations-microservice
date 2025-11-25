@@ -1,4 +1,7 @@
 package com.mur073.operations.web;
 
-public class CardApiImpl {
+import org.springframework.stereotype.Service;
+
+@Service
+public class CardApiImpl implements CardApi {
 }
