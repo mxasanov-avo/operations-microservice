@@ -1,6 +1,5 @@
 package com.mur073.operations.dto.request;
 
-import com.mur073.operations.domain.TransactionDirection;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
@@ -10,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
-public class TranserMoneyRequestDto {
+public class TransferMoneyRequestDto {
     private UUID userId;
 
     @NotBlank(message = "Currency cannot be blank")
@@ -20,5 +19,8 @@ public class TranserMoneyRequestDto {
     private BigDecimal amount;
 
     @CreditCardNumber(message = "PAN must be a valid card number")
-    private String pan;
+    private String senderPAN;
+
+    @CreditCardNumber(message = "PAN must be a valid card number")
+    private String receiverPAN;
 }

@@ -4,6 +4,14 @@ server:
 spring:
   application:
     name: operations-service
+  security:
+    user:
+      name: admin
+      password: admin
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9090
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/operations
