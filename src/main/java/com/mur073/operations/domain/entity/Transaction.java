@@ -20,6 +20,9 @@ public class Transaction extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private TransactionDirection direction;
 
+    @Column(name = "amount", nullable = false, updatable = false)
+    private BigDecimal amount;
+
     @Column(name = "balance_after", nullable = false, updatable = false)
     private BigDecimal balanceAfter;
 

@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS transactions (
 
     account_id UUID NOT NULL,
     direction VARCHAR(255) NOT NULL,
+    amount NUMERIC(19, 2) NOT NULL,
     balance_after NUMERIC(19, 2) NOT NULL,
     operation_id UUID NOT NULL,
 
