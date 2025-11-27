@@ -1,12 +1,12 @@
 package com.mur073.operations.exception;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
+@Setter
 @Getter
+@AllArgsConstructor
 public class UserNotFoundException extends RuntimeException {
-    final private String message;
-
-    public UserNotFoundException(String message) {
-        this.message = message;
-    }
+    private final String message;
 }

@@ -1,6 +1,6 @@
 package com.mur073.operations.controller;
 
-import com.mur073.operations.dto.request.TransferMoneyRequestDto;
+import com.mur073.operations.dto.TransferMoneyRequestDto;
 import com.mur073.operations.service.OperationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

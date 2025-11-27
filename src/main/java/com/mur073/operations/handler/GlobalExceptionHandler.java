@@ -1,5 +1,6 @@
 package com.mur073.operations.handler;
 
+import com.mur073.operations.dto.ErrorResponseDto;
 import com.mur073.operations.exception.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -17,30 +18,23 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<Map<String, Object>> handleUserNotFoundException(
+    public ResponseEntity<ErrorResponseDto> handleUserNotFoundException(
             UserNotFoundException ex
     ) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("status", HttpStatus.NOT_FOUND.value());
-        response.put("message", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(response);
+        log.error("Caught UserNotFoundException: ", ex);
+        return new ResponseEntity<>(new ErrorResponseDto("User not found"), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, Object>> handleMethodArgumentNotValidException(
+    public ResponseEntity<ErrorResponseDto> handleMethodArgumentNotValidException(
             MethodArgumentNotValidException ex
     ) {
-        Map<String, Object> response = new HashMap<>();
-        Map<String, Object> errors = new HashMap<>();
-        response.put("status", HttpStatus.BAD_REQUEST.value());
-        response.put("message", "Bad request");
-
-        ex.getBindingResult().getAllErrors().forEach(error -> {
-            String fieldName = ((FieldError) error).getField();
-            errors.put(fieldName, error.getDefaultMessage());
-        });
-        response.put("errors", errors);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        log.error("Caught MethodArgumentNotValidException: ", ex);
+        String message = ex.getBindingResult().getAllErrors()
+                .stream().findFirst()
+                .map(error -> ((FieldError) error).getDefaultMessage())
+                .orElse("Bad request");
+        return new ResponseEntity<>(new ErrorResponseDto(message), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
