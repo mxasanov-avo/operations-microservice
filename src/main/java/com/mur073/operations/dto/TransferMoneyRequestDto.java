@@ -1,11 +1,10 @@
-package com.mur073.operations.dto.request;
+package com.mur073.operations.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
-import org.hibernate.validator.constraints.Currency;
 
 import java.math.BigDecimal;
 import java.util.UUID;

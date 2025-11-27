@@ -2,15 +2,18 @@ package com.mur073.operations.domain.entity;
 
 import com.mur073.operations.domain.OperationStatus;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "operations")
 public class Operation extends BaseEntity {
@@ -34,5 +37,18 @@ public class Operation extends BaseEntity {
     private String detailsHash;
 
     @OneToMany(mappedBy = "operation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Transaction> transactions;
+    private List<Transaction> transactions = new ArrayList<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Operation operation = (Operation) o;
+        return Objects.equals(userId, operation.userId) && status == operation.status && Objects.equals(amount, operation.amount) && Objects.equals(currency, operation.currency) && Objects.equals(detailsEncoded, operation.detailsEncoded) && Objects.equals(detailsHash, operation.detailsHash);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), userId, status, amount, currency, detailsEncoded, detailsHash);
+    }
 }
