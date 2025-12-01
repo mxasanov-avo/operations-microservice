@@ -12,9 +12,4 @@ public class UserApiImpl implements UserApi {
     public Boolean isValidUser(UUID userId) {
         return false;
     }
-
-    @Override
-    public UserDto getUser(UUID userId) {
-        return null;
-    }
 }

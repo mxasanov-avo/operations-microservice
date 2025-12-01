@@ -1,7 +1,6 @@
 package com.mur073.operations.service.impl;
 
 import com.mur073.operations.dto.TransferMoneyRequestDto;
-import com.mur073.operations.dto.UserDto;
 import com.mur073.operations.service.OperationService;
 import com.mur073.operations.web.CardApi;
 import com.mur073.operations.web.UserApi;
@@ -14,13 +13,16 @@ import java.util.UUID;
 @Service
 public class OperationServiceImpl implements OperationService {
 
+  private Boolean canSendMoney(UUID userId) {
+    return true;
+  }
+
     private final UserApi userApi;
     private final CardApi cardApi;
 
     @Override
     public String transferMoney(TransferMoneyRequestDto request) {
-        UserDto sender = userApi.getUser(request.getUserId());
-
+//        UserDto sender = userApi.getUser(request.getUserId());
 
         // 1. Validate sender and card: status and balance
         // 2. Validate receiver card: status
@@ -32,12 +34,7 @@ public class OperationServiceImpl implements OperationService {
         throw new RuntimeException("Not implemented");
     }
 
-    private Boolean canSendMoney(UUID userId) {
-        return true;
-    }
-
-    private Boolean canReceiveMoney(UUID userId) {
-        return true;
-    }
+  private Boolean canReceiveMoney(UUID userId) {
+    return true;
+  }
 }
-

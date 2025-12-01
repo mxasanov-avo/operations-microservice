@@ -10,14 +10,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ApiConfig {
 
-    @Bean
-    CardApi cardApi() {
-        return new CardApiImpl();
-    }
+  @Bean
+  CardApi cardApi() {
+    return new CardApiImpl();
+  }
 
-    @Bean
-    UserApi userApi() {
-        return new UserApiImpl();
-    }
+  @Bean
+  UserApi userApi() {
+    return new UserApiImpl();
+  }
 }
-

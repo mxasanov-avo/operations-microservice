@@ -29,3 +29,13 @@ CREATE TABLE IF NOT EXISTS transactions (
         FOREIGN KEY (operation_id)
         REFERENCES operations (id)
 );
+
+CREATE TABLE IF NOT EXISTS correspondent_accounts (
+    id UUID NOT NULL PRIMARY KEY,
+
+    balance NUMERIC(19, 2) NOT NULL,
+    currency VARCHAR(255) NOT NULL,
+
+    created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+);

@@ -18,29 +18,26 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorResponseDto> handleUserNotFoundException(
-            UserNotFoundException ex
-    ) {
+    public ResponseEntity<ErrorResponseDto> handleUserNotFoundException(UserNotFoundException ex) {
         log.error("Caught UserNotFoundException: ", ex);
         return new ResponseEntity<>(new ErrorResponseDto("User not found"), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponseDto> handleMethodArgumentNotValidException(
-            MethodArgumentNotValidException ex
-    ) {
+            MethodArgumentNotValidException ex) {
         log.error("Caught MethodArgumentNotValidException: ", ex);
-        String message = ex.getBindingResult().getAllErrors()
-                .stream().findFirst()
-                .map(error -> ((FieldError) error).getDefaultMessage())
-                .orElse("Bad request");
+        String message =
+                ex.getBindingResult().getAllErrors().stream()
+                        .findFirst()
+                        .map(error -> ((FieldError) error).getDefaultMessage())
+                        .orElse("Bad request");
         return new ResponseEntity<>(new ErrorResponseDto(message), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Map<String, Object>> handleHttpMessageNotReadableException(
-            HttpMessageNotReadableException ex
-    ) {
+            HttpMessageNotReadableException ex) {
         Map<String, Object> response = new HashMap<>();
         response.put("status", HttpStatus.BAD_REQUEST.value());
         response.put("message", "Bad request");
